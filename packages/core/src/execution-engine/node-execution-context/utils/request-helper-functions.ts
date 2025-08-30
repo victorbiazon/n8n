@@ -1100,14 +1100,14 @@ export async function requestOAuth2(
 			if (
 				requestOptions.resolveWithFullResponse === true &&
 				requestOptions.simple === false &&
-				response.statusCode === tokenExpiredStatusCode
+				(response.statusCode === tokenExpiredStatusCode || response.statusCode === 403)
 			) {
 				throw response;
 			}
 			return response;
 		})
 		.catch(async (error: IResponseError) => {
-			if (error.statusCode === tokenExpiredStatusCode) {
+			if (error.statusCode === tokenExpiredStatusCode || error.statusCode === 403) {
 				// Token is probably not valid anymore. So try refresh it.
 				const tokenRefreshOptions: IDataObject = {};
 				if (oAuth2Options?.includeCredentialsOnRefreshOnBody) {
