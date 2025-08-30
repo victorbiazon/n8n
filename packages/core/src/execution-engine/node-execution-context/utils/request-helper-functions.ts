@@ -1327,7 +1327,7 @@ export async function httpRequestWithAuthentication(
 		// if there is a pre authorization method defined and
 		// the method failed due to unauthorized request
 		if (
-			error.response?.status === 401 &&
+			(error.response?.status === 401 || error.response?.status === 403) &&
 			additionalData.credentialsHelper.preAuthentication !== undefined
 		) {
 			try {
