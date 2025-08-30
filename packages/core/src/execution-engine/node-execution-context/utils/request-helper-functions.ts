@@ -1027,7 +1027,7 @@ export async function requestOAuth2(
 	}
 	if (isN8nRequest) {
 		return await this.helpers.httpRequest(newRequestOptions).catch(async (error: AxiosError) => {
-			if (error.response?.status === 401) {
+			if (error.response?.status === 401 || error.response?.status === 403) {
 				this.logger.debug(
 					`OAuth2 token for "${credentialsType}" used by node "${node.name}" expired. Should revalidate.`,
 				);
